@@ -1,0 +1,41 @@
+group 'br.com.moradas291'
+version '1.0'
+
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-mail:1.5.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-security:1.5.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf:1.5.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-web:1.5.4.RELEASE')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.3.RELEASE')
+    compile('com.github.darrachequesne:spring-data-jpa-datatables:4.0')
+    compile('org.apache.commons:commons-lang3:3.5')
+    compile('mysql:mysql-connector-java:6.0.5')
+   // providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:1.5.4.RELEASE')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

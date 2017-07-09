@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Condomínio Moradas do Campo Limpo</title>
+
+    <div th:replace="fragments/_css"/>
+
+</head>
+
+<body>
+<div id = "menuNavegacao" th:replace="fragments/_menuNavegacao"/>
+
+<div id="corpoPrincipal">
+
+    <div class="container-fluid">
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;">
+            <div class="card-block">
+                <h2 class="text-center">WebSite do Conjunto Residencial Moradas do Campo Limpo</h2>
+                <br/>
+                <img src="/static/images/banner_condominio.jpg" alt="Banner do Condomínio" class="img-fluid"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div id="resultLoading" style="display: none">
+    <div>
+        <img src="/static/images/ajax-loader.gif"></img>
+        <div>Carregando</div>
+    </div>
+    <div class="bg"></div>
+</div>
+<div th:replace="fragments/_scripts"/>
+
+</body>
+</html>

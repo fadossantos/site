@@ -1,0 +1,59 @@
+<div id="modalLogin" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" style="display: block;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLiveLabel">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload();">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id = "formLogin" class="form-signin" role="form" action="login" th:action="@{/login}"
+					  th:object="${formLogin}" method="post">
+					<input class="form-control" placeholder="Unidade" name="username"
+						   type="text" autofocus="true" th:field="${formLogin.username}"
+						   value="" required="true"
+					/>
+					<input class="form-control" placeholder="Senha" name="password"
+						   type="password" th:field="${formLogin.password}" required="true"
+					/>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" value = "Entrar">Entrar</button>
+					<div th:if="${param.error}">
+						<h5>Erro na autenticação.</h5>
+					</div>
+					<div th:if="${param.logout}">
+						<h5>Sessão encerrada.</h5>
+					</div>
+				</form>
+				<script>
+
+					$("#formLogin").submit(function(e) {
+  						var url = "/login";
+  						$.ajax({
+  							type: "POST",
+  							url: url,
+  							data: $("#formLogin").serialize(),
+  							success: function(data)
+  							{
+  								if(data.indexOf("Erro na autenticação.") != -1){
+  									$('#modalLogin').replaceWith(data);
+  								}
+  								else
+  								{
+  									$('#menuNavegacao').replaceWith(data);
+  								}
+  							}
+  						});
+  						e.preventDefault();
+  					});
+
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
