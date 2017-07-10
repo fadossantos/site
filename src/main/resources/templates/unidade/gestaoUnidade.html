@@ -1,0 +1,90 @@
+<div id="corpoPrincipal">
+    <div class="container-fluid">
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;">
+            <div class="card-block">
+                <div class="row justify-content-between">
+                    <h3 class="text-justify col-3">Gestão de Unidades</h3>
+                    <a class="col-1" onclick="executaAjaxGet('/unidade/adicionarUnidade','espacoUnidade', '', '')"><span
+                            class="fa fa-plus fa-2x"></span></a>
+                </div>
+                <div id="espacoUnidade">
+                    <div th:if="${mensagem} != null">
+                        <h3 th:text="${mensagem}"></h3>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 15px;margin-bottom: 15px;">
+                    <div class="card-block">
+
+                            <table id="tabelaUnidades" class="table display responsive nowrap table-hover" cellspacing="0" width="100%">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>Unidade</th>
+                                    <th>Email</th>
+                                    <th>Visualizar</th>
+                                    <th>Editar</th>
+                                    <th>Remover</th>
+                                </tr>
+                                </thead>
+                            </table>
+
+                    </div>
+                </div>
+                <script>
+                    $('table#tabelaUnidades')
+                            .DataTable(
+                                    {
+                                        language : {
+                                            'url' : '/static/js/Portuguese.json'
+                                        },
+                                        ajax : {
+                                            'url' : '/unidade/dtUnidades',
+                                            'contentType' : 'application/json',
+                                            'type' : 'POST',
+                                            'data' : function(d) {
+                                                return JSON.stringify(d);
+                                            }
+                                        },
+                                        serverSide : true,
+
+                                        columns : [
+                                                {
+                                                    data : 'unidade'
+                                                },
+                                                {
+                                                    data : 'email'
+                                                },
+                                                {
+                                                    data : 'visualizar',
+                                                    render : function (data, type, row) {
+                                                        return '<a href="#" onclick = "executaAjaxGet(\'/unidade/visualizarUnidade/'
+                                                        + row.unidade
+                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-eye"> </span></a>';
+                                                    }
+                                                },
+                                                {
+                                                    data : 'editar',
+                                                    render : function (data, type, row) {
+                                                        return '<a href="#" onclick = "executaAjaxGet(\'/unidade/editarUnidade/'
+                                                        + row.unidade
+                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-pencil"> </span></a>';
+                                                    }
+                                                },
+                                                {
+                                                    data : 'visualizar',
+                                                    render : function (data, type, row) {
+                                                        return '<a href="#" onclick = "executaAjaxGet(\'/unidade/removerUnidade/'
+                                                        + row.unidade
+                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-trash"> </span></a>';
+                                                    }
+                                                }],
+                                        "order" : [ [ 0, "desc" ] ]
+                                    });
+
+
+                </script>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div id="espacoUnidade">
+
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${unidade} != null">
+            <div class="card-block">
+                <p th:text="${mensagem}"></p>
+            </div>
+        </div>
+
+    <script>
+        $('#tabelaUnidades').DataTable().ajax.reload();
+    </script>
+</div>

@@ -59,6 +59,7 @@ public class SiteInitializer {
                 admin = new Unidade();
                 //and fill her attributes accordingly
                 admin.setUnidade(adminUsername);
+                admin.setEmail("moradas291@gmail.com");
                 admin.setSenha(passwordEncoder.encode(resetPassword));
                 List<Permissoes> permissoesList = new ArrayList<Permissoes>();
                 permissoesList.add(permissao);
@@ -72,6 +73,7 @@ public class SiteInitializer {
                 morador = new Unidade();
                 //and fill her attributes accordingly
                 morador.setUnidade(moradorUserName);
+                morador.setEmail("denizeom@gmail.com");
                 morador.setSenha(passwordEncoder.encode(senha));
                 List<Permissoes> permissoesList = new ArrayList<Permissoes>();
                 permissoesList.add(permissao1);

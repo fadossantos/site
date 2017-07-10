@@ -1,0 +1,45 @@
+<div id="espacoUnidade">
+    <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${unidade} != null">
+        <div class="card-block">
+            <form id="formUnidade" role="form" action="#" th:action="@{/unidade/adicionarUnidade}"
+                  th:object="${unidade}"
+                  method="post">
+                <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Dados
+                        Incorretos
+                    </li>
+                </ul>
+                <div class="form-group">
+                    <label for="unidade">Unidade</label>
+                    <input type="text" class="form-control" th:field="*{unidade}" aria-describedby="unidadeHelp"
+                           placeholder="Unidade" th:errorclass="fieldError"/>
+                    <small id="unidadeHelp" class="form-text text-muted">Preencha com o identificador da unidade.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" class="form-control" th:field="*{email}" aria-describedby="emailHelp"
+                           placeholder="E-Mail" th:errorclass="fieldError"/>
+                    <small id="emailHelp" class="form-text text-muted">Preencha o email da unidade.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+            <script>
+					$("#formUnidade").submit(function(e) {
+  						var url = "/unidade/adicionarUnidade";
+  						$.ajax({
+  							type: "POST",
+  							url: url,
+  							data: $("#formUnidade").serialize(),
+  							success: function(data)
+  							{
+  								$('#espacoUnidade').replaceWith(data);
+  							}
+  						});
+  						e.preventDefault();
+  					});
+
+            </script>
+        </div>
+    </div>
+</div>

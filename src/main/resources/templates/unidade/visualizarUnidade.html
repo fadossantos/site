@@ -1,0 +1,28 @@
+<div id="espacoUnidade">
+    <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${unidade} != null">
+        <div class="card-block">
+            <dl class="row">
+                <dt class="col-3">
+                    Unidade nº:
+                </dt>
+                <dd class="col-9" th:text="${unidade.unidade}">
+                    153A
+                </dd>
+                <dt class="col-3">
+                    Email:
+                </dt>
+                <dd class="col-9" th:text="${unidade.email}">
+                    denizeom@gmail.com
+                </dd>
+                <dt class="col-3">
+                    Moradores:
+                </dt>
+                <div th:each="obj : ${unidade.moradores}">
+                    <dd class="col-9" th:text="${obj.nome}">
+                        Denize de Oliveira Mendonça
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div id="espacoUnidade">
+    <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${unidade} != null">
+        <div class="card-block">
+            <form id="formUnidade" role="form" action="#" th:action="@{/unidade/editarUnidade}"
+                  th:object="${unidade}"
+                  method="post">
+                <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Dados
+                        Incorretos
+                    </li>
+                </ul>
+                <div class="form-group">
+
+                    <label for="unidade">Unidade</label>
+                    <span class="form-control" th:text="${unidade.unidade}"></span>
+                    <input type="hidden" class="form-control" th:field="*{unidade}" th:errorclass="fieldError"/>
+
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" class="form-control" th:field="*{email}" aria-describedby="emailHelp"
+                           placeholder="E-Mail" th:errorclass="fieldError"/>
+                    <small id="emailHelp" class="form-text text-muted">Preencha o email da unidade.</small>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="${#ids.next('resetSenha')}">Resetar de Senha?</label>
+                    <input type="radio" th:field="*{resetSenha}" value="true"/><span>Sim</span>
+                    <input type="radio" th:field="*{resetSenha}" value="false"/><span>Não</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="permissoes">Permissões</label>
+                    <div class="checkbox" th:each="obj : ${listaPermissoes}">
+                        <label> <input type="checkbox" th:field="*{permissoes}"
+                                       th:value="${obj.idPermissoes}" /> <span
+                                th:for="${#ids.prev('permissoes')}" th:text="${obj.descPermissoes}">permissoes</span></label>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+            <script>
+					$("#formUnidade").submit(function(e) {
+  						var url = "/unidade/editarUnidade";
+  						$.ajax({
+  							type: "POST",
+  							url: url,
+  							data: $("#formUnidade").serialize(),
+  							success: function(data)
+  							{
+  								$('#espacoUnidade').replaceWith(data);
+  							}
+  						});
+  						e.preventDefault();
+  					});
+
+            </script>
+        </div>
+    </div>
+</div>
