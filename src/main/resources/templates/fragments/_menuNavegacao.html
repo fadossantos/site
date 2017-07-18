@@ -20,9 +20,9 @@
                     </a>
                     <div class="dropdown-menu inverse" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item inverse"
-                           onclick="executaAjaxGet('/historia', 'corpoPrincipal', '', '')">História</a>
+                           onclick="executaAjaxGet('/historia', 'corpoPrincipal', function(){}, function(){})">História</a>
                         <a class="dropdown-item inverse"
-                           onclick="executaAjaxGet('/localizacao', 'corpoPrincipal', '', '')">Localização</a>
+                           onclick="executaAjaxGet('/localizacao', 'corpoPrincipal', function(){}, function(){})">Localização</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -73,7 +73,7 @@
                         Administração
                     </a>
                     <div class="dropdown-menu inverse" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/unidade/gestaoUnidade', 'corpoPrincipal', '', '')">Gestão Unidades</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/unidade/gestaoUnidade', 'corpoPrincipal', function(){}, function(){})">Gestão Unidades</a>
                         <a class="dropdown-item inverse" href="#">Gestão Reservas</a>
                         <a class="dropdown-item inverse" href="#">Gestão Documentos</a>
                         <a class="dropdown-item inverse" href="#">Gestão Votações e Enquetes</a>
@@ -102,7 +102,7 @@
                 </div>
                 <div sec:authorize="isAuthenticated() == false">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="executaAjaxGet('/login','modalLogin','','')"><span
+                        <a class="nav-link" href="#" onclick="executaAjaxGet('/login','modalLogin',function(){},function(){})"><span
                                 class="fa fa-sign-in" aria-hidden="true"></span> Entrar</a>
                     </li>
                 </div>

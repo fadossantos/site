@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -38,9 +39,11 @@ public class Unidade implements Serializable {
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Permissoes> permissoes;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
     private List<Morador> moradores;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
     List<HistoricoVisita> historicoVisitas;
 

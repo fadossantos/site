@@ -1,0 +1,86 @@
+<div id="modalMorador" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel"
+     style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLiveLabel"
+                    th:text="'Adicionar Morador na unidade ' + ${unidade}">Adicionar Morador</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        th:onclick="'executaAjaxGet(\'/unidade/visualizarUnidade/'
+                                                        + ${unidade}
+                                                        + '\',\'espacoUnidade\',function(){},function(){})'">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formMorador" role="form" th:action="@{/unidade/morador/adicionarMorador}"
+                      enctype="multipart/form-data" th:object="${morador}" method="post">
+                    <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Dados
+                            Incorretos
+                        </li>
+                    </ul>
+                    <input type="hidden" th:field="*{unidade.unidade}"/>
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" class="form-control" id="nome" aria-describedby="nomeHelp"
+                               placeholder="Nome Completo"
+                               th:field="*{nome}" th:errorclass="fieldError"/>
+                        <small id="nomeHelp" class="form-text text-muted">Digite o nome completo do morador.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input type="text" class="form-control" id="documento" aria-describedby="documentoHelp"
+                               placeholder="Documento"
+                               th:field="*{documento}" th:errorclass="fieldError"/>
+                        <small id="documentoHelp" class="form-text text-muted">Digite o documento do morador.</small>
+                    </div>
+                    <div class="form-group">
+                        <label th:for="${#ids.next('responsavel')}">Responsável da Unidade?</label>
+                        <input type="radio" th:field="*{responsavel}" value="true"/><span>Sim</span>
+                        <input type="radio" th:field="*{responsavel}" value="false"/><span>Não</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="multipartFile">Foto</label>
+                        <input type="file" class="form-control-file" id="multipartFile" aria-describedby="fotoHelp"
+                               accept="image/jpeg" capture="camera" th:field="*{multipartFile}" th:errorclass="fieldError"/>
+                        <small id="fotoHelp" class="form-text text-muted">Tire ou selecione uma foto do morador.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+                <script th:inline="javascript">
+				/*<![CDATA[*/
+					$('#formMorador').submit(function(e) {
+					    var form = $(this);
+					    var formdata = new FormData(form[0]);
+  						var url = '/unidade/morador/adicionarMorador';
+  						$.ajax({
+  							type: 'POST',
+  							url: url,
+  							data: formdata,
+  							success: function(data)
+  							{
+                                if(data.indexOf('Morador adicionado com sucesso.') > 1000){
+                                        $('#modalMorador').replaceWith(data);
+                                }
+                                else{
+                                    $('#tabelaUnidades').DataTable().ajax.reload();
+                                    var caminho = '/unidade/visualizarUnidade/'+[[${unidade}]];
+                                    executaAjaxGet(caminho,'espacoUnidade',function(){},function(){});
+                                }
+  							}
+  						});
+  						e.preventDefault();
+  					});
+				/*]]>*/
+
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

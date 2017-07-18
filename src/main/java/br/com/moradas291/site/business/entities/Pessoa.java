@@ -1,6 +1,11 @@
 package br.com.moradas291.site.business.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -15,22 +20,42 @@ public class Pessoa implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long idPessoa;
 
+    @NotEmpty
+    @NotNull
     private String nome;
 
+    @NotEmpty
+    @NotNull
     private String documento;
 
+    @Column(length=16777215)
     private byte[] foto;
 
-    public Pessoa(long idPessoa, String nome, String documento, byte[] foto) {
+    @Transient
+    private MultipartFile multipartFile;
+
+
+
+    public Pessoa() {
+    }
+
+    public Pessoa(long idPessoa, String nome, String documento, byte[] foto, MultipartFile multipartFile) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.documento = documento;
         this.foto = foto;
+        this.multipartFile = multipartFile;
     }
 
-    public Pessoa() {
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
     }
 
     public long getIdPessoa() {

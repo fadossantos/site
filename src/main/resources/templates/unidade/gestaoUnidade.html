@@ -4,12 +4,15 @@
             <div class="card-block">
                 <div class="row justify-content-between">
                     <h3 class="text-justify col-3">Gestão de Unidades</h3>
-                    <a class="col-1" onclick="executaAjaxGet('/unidade/adicionarUnidade','espacoUnidade', '', '')"><span
+                    <a class="col-1" onclick="executaAjaxGet('/unidade/adicionarUnidade','espacoUnidade', function(){}, function(){})"><span
                             class="fa fa-plus fa-2x"></span></a>
                 </div>
                 <div id="espacoUnidade">
                     <div th:if="${mensagem} != null">
                         <h3 th:text="${mensagem}"></h3>
+                    </div>
+                    <div id = "modalMorador">
+
                     </div>
                 </div>
 
@@ -56,26 +59,32 @@
                                                 },
                                                 {
                                                     data : 'visualizar',
+                                                    searchable: false,
+                                                    orderable: false,
                                                     render : function (data, type, row) {
                                                         return '<a href="#" onclick = "executaAjaxGet(\'/unidade/visualizarUnidade/'
                                                         + row.unidade
-                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-eye"> </span></a>';
+                                                        + '\',\'espacoUnidade\',function(){},function(){})"><span class="fa fa-eye"> </span></a>';
                                                     }
                                                 },
                                                 {
                                                     data : 'editar',
+                                                    searchable: false,
+                                                    orderable: false,
                                                     render : function (data, type, row) {
                                                         return '<a href="#" onclick = "executaAjaxGet(\'/unidade/editarUnidade/'
                                                         + row.unidade
-                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-pencil"> </span></a>';
+                                                        + '\',\'espacoUnidade\',function(){},function(){})"><span class="fa fa-pencil"> </span></a>';
                                                     }
                                                 },
                                                 {
-                                                    data : 'visualizar',
+                                                    data : 'remover',
+                                                    searchable: false,
+                                                    orderable: false,
                                                     render : function (data, type, row) {
                                                         return '<a href="#" onclick = "executaAjaxGet(\'/unidade/removerUnidade/'
                                                         + row.unidade
-                                                        + '\',\'espacoUnidade\',\'\',\'\')"><span class="fa fa-trash"> </span></a>';
+                                                        + '\',\'espacoUnidade\',function(){},function(){})"><span class="fa fa-trash"> </span></a>';
                                                     }
                                                 }],
                                         "order" : [ [ 0, "desc" ] ]

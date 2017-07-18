@@ -1,14 +1,19 @@
 package br.com.moradas291.site.web.controller;
 
+import br.com.moradas291.site.SiteUtils;
+import br.com.moradas291.site.business.entities.Morador;
 import br.com.moradas291.site.business.entities.Unidade;
 import br.com.moradas291.site.business.services.DTUnidadeService;
+import br.com.moradas291.site.business.services.MoradorService;
 import br.com.moradas291.site.business.services.PermissoesService;
 import br.com.moradas291.site.business.services.UnidadeService;
 import br.com.moradas291.site.web.mail.SmtpMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @Controller
@@ -36,6 +42,9 @@ public class UnidadeController {
 
     @Autowired
     SmtpMailSender smtpMailSender;
+
+    @Autowired
+    MoradorService moradorService;
 
     @RequestMapping(value = "/gestaoUnidade", method = RequestMethod.GET)
     public ModelAndView gestaoUnidade() {
@@ -60,7 +69,7 @@ public class UnidadeController {
         if (result.hasErrors()) {
             return "unidade/adicionarUnidade";
         } else {
-            String senha = gerarSenhaAleatoria();
+            String senha = SiteUtils.gerarSenhaAleatoria();
             unidade.setSenha(new BCryptPasswordEncoder().encode(senha));
             this.unidadeService.addOrUpdate(unidade);
             try {
@@ -120,7 +129,7 @@ public class UnidadeController {
             return "unidade/editarUnidade";
         } else {
             if (unidade.isResetSenha()) {
-                String senha = gerarSenhaAleatoria();
+                String senha = SiteUtils.gerarSenhaAleatoria();
                 unidade.setSenha(new BCryptPasswordEncoder().encode(senha));
                 this.unidadeService.addOrUpdate(unidade);
                 try {
@@ -136,22 +145,79 @@ public class UnidadeController {
         }
     }
 
-    private static String gerarSenhaAleatoria() {
-        int qtdeMaximaCaracteres = 8;
-        String[] caracteres = {"a", "1", "b", "2", "4", "5", "6", "7", "8",
-                "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-                "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
-                "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I",
-                "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-                "V", "W", "X", "Y", "Z"};
-
-        StringBuilder senha = new StringBuilder();
-
-        for (int i = 0; i < qtdeMaximaCaracteres; i++) {
-            int posicao = (int) (Math.random() * caracteres.length);
-            senha.append(caracteres[posicao]);
-        }
-        return senha.toString();
+    @RequestMapping(value = "/morador/adicionarMorador", method = RequestMethod.GET)
+    public ModelAndView adicionarMorador(@RequestParam(value="idUnidade", required=true) String idUnidade) {
+        Morador morador = new Morador();
+        morador.setUnidade(this.unidadeService.findOne(idUnidade));
+        ModelAndView mav = new ModelAndView("unidade/adicionarMorador");
+        mav.addObject("unidade", idUnidade);
+        mav.addObject("morador", morador);
+        return mav;
     }
 
+
+    @RequestMapping(value = "/morador/adicionarMorador", method = RequestMethod.POST)
+    public String adicionarMoradorPost(@Valid Morador morador, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("unidade", morador.getUnidade().getUnidade());
+            return "unidade/adicionarMorador";
+        } else {
+            try {
+                morador.setFoto(morador.getMultipartFile().getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.moradorService.addOrUpdate(morador);
+        }
+        model.addAttribute("mensagem", "Morador adicionado com sucesso.");
+        return "unidade/mensagemSucesso";
+    }
+
+    @RequestMapping(value = "/morador/editarMorador/{idMorador}", method = RequestMethod.GET)
+    public ModelAndView editarMorador(@PathVariable Long idMorador) {
+        Morador morador = this.moradorService.findOne(idMorador);
+        ModelAndView mav = new ModelAndView("unidade/editarMorador");
+        mav.addObject("morador", morador);
+        return mav;
+    }
+
+    @RequestMapping(value = "/morador/editarMorador", method = RequestMethod.POST)
+    public String editarMoradorPost(@Valid Morador morador, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "unidade/editarMorador";
+        } else {
+            this.moradorService.addOrUpdate(morador);
+        }
+        model.addAttribute("mensagem", "Morador " + morador.getNome() + " editado com sucesso.");
+        return "unidade/mensagemSucesso";
+    }
+
+    @RequestMapping(value = "/morador/removerMorador/{idMorador}", method = RequestMethod.GET)
+    public ModelAndView removerMorador(@PathVariable Long idMorador) {
+        try {
+            this.moradorService.remove(idMorador);
+            System.out.println("Morador " + idMorador + " removida com sucesso.");
+        } catch (Exception e) {
+            System.out.println("Erro na remoção do morador " + idMorador + "\n\n" + e.getMessage());
+        }
+        ModelAndView mav = new ModelAndView("unidade/mensagemSucesso");
+        mav.addObject("mensagem", "Morador nº " + idMorador + " removido com sucesso");
+        return mav;
+    }
+
+    @RequestMapping(value = "/morador/foto/{idMorador}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> getImage(@PathVariable("idMorador") Long idMorador) throws IOException {
+        byte[] imageContent = this.moradorService.findOne(idMorador).getFoto();
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+    }
+
+
 }
+
+
+
+
+
+

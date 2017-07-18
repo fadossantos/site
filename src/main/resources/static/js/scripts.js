@@ -2,14 +2,14 @@ function executaAjaxGet(urlChamada, divDestino, preExecute, posExecute) {
 	$.ajax({
 		type : "GET",
 		url : urlChamada,
-		beforeSend : preExecute,
-
+		beforeSend : function(){
+		    preExecute()
+		},
 		success : function(response) {
-
 			$('#' + divDestino).replaceWith(response);
 		},
 		complete : function() {
-			posExecute;
+			posExecute();
 		},
 		error : function(xhr) {
 			alert("Um erro ocorreu: " + xhr.status + " - " + xhr.statusText);

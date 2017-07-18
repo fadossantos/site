@@ -1,5 +1,7 @@
 package br.com.moradas291.site.business.entities;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,8 +17,8 @@ public class Visitante extends Pessoa{
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
     List<HistoricoVisita> historicoVisitas;
 
-    public Visitante(long idPessoa, String nome, String documento, byte[] foto, List<HistoricoVisita> historicoVisitas) {
-        super(idPessoa, nome, documento, foto);
+    public Visitante(long idPessoa, String nome, String documento, byte[] foto, MultipartFile multipartFile, List<HistoricoVisita> historicoVisitas) {
+        super(idPessoa, nome, documento, foto, multipartFile);
         this.historicoVisitas = historicoVisitas;
     }
 

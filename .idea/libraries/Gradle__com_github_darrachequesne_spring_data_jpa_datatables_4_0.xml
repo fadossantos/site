@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.darrachequesne:spring-data-jpa-datatables:4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.darrachequesne/spring-data-jpa-datatables/4.0/2d56190cc7ea2348ba357ba189c9c0aac3b18a85/spring-data-jpa-datatables-4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.darrachequesne/spring-data-jpa-datatables/4.0/9a8cdd86ded5298a5bcee1fb193aa33a19e549c1/spring-data-jpa-datatables-4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

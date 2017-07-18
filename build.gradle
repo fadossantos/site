@@ -35,7 +35,7 @@ dependencies {
     compile('com.github.darrachequesne:spring-data-jpa-datatables:4.0')
     compile('org.apache.commons:commons-lang3:3.5')
     compile('mysql:mysql-connector-java:6.0.5')
-   // providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:1.5.4.RELEASE')
+    //providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:1.5.4.RELEASE')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
