@@ -51,13 +51,19 @@
                 <script th:inline="javascript">
 				/*<![CDATA[*/
 					$('#formMorador').submit(function(e) {
-					    var form = $(this);
-					    var formdata = new FormData(form[0]);
+					    e.preventDefault();
+					    var form =  document.querySelector('form');
+					    var formdata = new FormData(form);
+					    //var formdata = $(this).serialize();
+					    console.log(formdata);
+					    console.log(form);
   						var url = '/unidade/morador/adicionarMorador';
   						$.ajax({
   							type: 'POST',
   							url: url,
   							data: formdata,
+  							processData: false,
+                            contentType: false,
   							success: function(data)
   							{
                                 if(data.indexOf('Morador adicionado com sucesso.') > 1000){
@@ -70,7 +76,7 @@
                                 }
   							}
   						});
-  						e.preventDefault();
+
   					});
 				/*]]>*/
 

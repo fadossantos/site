@@ -31,17 +31,17 @@
                         Áreas Comuns
                     </a>
                     <div class="dropdown-menu inverse" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item inverse" href="#">Brinquedoteca</a>
-                        <a class="dropdown-item inverse" href="#">Playground</a>
-                        <a class="dropdown-item inverse" href="#">Sala de Exercícios</a>
-                        <a class="dropdown-item inverse" href="#">Churrasqueira</a>
-                        <a class="dropdown-item inverse" href="#">Jardins</a>
-                        <a class="dropdown-item inverse" href="#">Salão de Festas</a>
-                        <a class="dropdown-item inverse" href="#">Recepção Social</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/brinquedoteca', 'corpoPrincipal', function(){}, function(){})">Brinquedoteca</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/playground', 'corpoPrincipal', function(){}, function(){})">Playground</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/salaDeExercicios', 'corpoPrincipal', function(){}, function(){})">Sala de Exercícios</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/churrasqueira', 'corpoPrincipal', function(){}, function(){})">Churrasqueira</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/jardins', 'corpoPrincipal', function(){}, function(){})">Jardins</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/salaoDeFestas', 'corpoPrincipal', function(){}, function(){})">Salão de Festas</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/recepcaoSocial', 'corpoPrincipal', function(){}, function(){})">Recepção Social</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Classificados</a>
+                    <a class="nav-link" onclick="executaAjaxGet('/classificados', 'corpoPrincipal', function(){}, function(){})">Classificados</a>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('Morador')">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -49,21 +49,21 @@
                         Serviços
                     </a>
                     <div class="dropdown-menu inverse" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item inverse" href="#">Reservas</a>
-                        <a class="dropdown-item inverse" href="#">Documentos</a>
-                        <a class="dropdown-item inverse" href="#">Votações e Enquetes</a>
-                        <a class="dropdown-item inverse" href="#">Quadro de Avisos</a>
-                        <a class="dropdown-item inverse" href="#">Eventos</a>
-                        <a class="dropdown-item inverse" href="#">Livro de Ocorrências</a>
-                        <a class="dropdown-item inverse" href="#">Funcionários</a>
-                        <a class="dropdown-item inverse" href="#">Mensagens</a>
-                        <a class="dropdown-item inverse" href="#">Obras e providências</a>
-                        <a class="dropdown-item inverse" href="#">Lista de Ramais</a>
-                        <a class="dropdown-item inverse" href="#">Contratos</a>
-                        <a class="dropdown-item inverse" href="#">Fornecedores</a>
-                        <a class="dropdown-item inverse" href="#">Calendário de Manutenção</a>
-                        <a class="dropdown-item inverse" href="#">Assembléias</a>
-                        <a class="dropdown-item inverse" href="#">Caixa de Sugestões</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/reservas', 'corpoPrincipal', function(){}, function(){})">Reservas</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/documentos', 'corpoPrincipal', function(){}, function(){})">Documentos</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/votacoesEnquetes', 'corpoPrincipal', function(){}, function(){})">Votações e Enquetes</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/quadroDeAvisos', 'corpoPrincipal', function(){}, function(){})">Quadro de Avisos</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/eventos', 'corpoPrincipal', function(){}, function(){})">Eventos</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/livroDeOcorrencias', 'corpoPrincipal', function(){}, function(){})">Livro de Ocorrências</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/funcionarios', 'corpoPrincipal', function(){}, function(){})">Funcionários</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/mensagens', 'corpoPrincipal', function(){}, function(){})">Mensagens</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/obrasProvidencias', 'corpoPrincipal', function(){}, function(){})">Obras e providências</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/listaRamais', 'corpoPrincipal', function(){}, function(){})">Lista de Ramais</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/contratos', 'corpoPrincipal', function(){}, function(){})">Contratos</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/fornecedores', 'corpoPrincipal', function(){}, function(){})">Fornecedores</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/calendarioManutencao', 'corpoPrincipal', function(){}, function(){})">Calendário de Manutenção</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/assembleias', 'corpoPrincipal', function(){}, function(){})">Assembléias</a>
+                        <a class="dropdown-item inverse" onclick="executaAjaxGet('/caixaDeSugestoes', 'corpoPrincipal', function(){}, function(){})">Caixa de Sugestões</a>
                     </div>
                 </li>
 
