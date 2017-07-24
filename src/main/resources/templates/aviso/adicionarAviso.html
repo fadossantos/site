@@ -1,0 +1,73 @@
+<div id="espacoAviso">
+    <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${aviso} != null">
+        <div class="card-block">
+            <form id="formAviso" role="form" action="#" th:action="@{/aviso/adicionarAviso}"
+                  th:object="${aviso}"
+                  method="post">
+                <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Dados
+                        Incorretos
+                    </li>
+                </ul>
+                <div class="form-group">
+                    <label for="aviso">Aviso</label>
+                    <input type="text" class="form-control" th:field="*{descricao}" aria-describedby="descricaoHelp"
+                           placeholder="Descrição" th:errorclass="fieldError"/>
+                    <small id="descricaoHelp" class="form-text text-muted">Insira a descrição do Aviso.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataExpiracao">Data Expiração</label>
+                    <input class="form-control usaCalendario" type="text"
+                                    th:field="*{dataExpiracao}" th:errorclass="fieldError" />
+                </div>
+
+                <div class="form-group">
+                    <label for="dataExibicao">Data Exibição</label>
+                    <input class="form-control usaCalendario" type="text"
+                           th:field="*{dataExibicao}" th:errorclass="fieldError" />
+                </div>
+
+                <div class="form-group">
+                    <label for="multipartFile">Foto</label>
+                    <input type="file" class="form-control-file" id="multipartFile" aria-describedby="fotoHelp"
+                           accept="image/jpeg" capture="camera" th:field="*{multipartFile}" th:errorclass="fieldError"/>
+                    <small id="fotoHelp" class="form-text text-muted">Tire ou selecione uma foto para o aviso.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+            <script>
+				/*<![CDATA[*/
+					$('#formAviso').submit(function(e) {
+					    e.preventDefault();
+					    var form =  document.querySelector('form');
+					    var formdata = new FormData(form);
+					    //var formdata = $(this).serialize();
+					    console.log(formdata);
+					    console.log(form);
+  						var url = '/aviso/adicionarAviso';
+  						$.ajax({
+  							type: 'POST',
+  							url: url,
+  							data: formdata,
+  							processData: false,
+                            contentType: false,
+  							success: function(data)
+  							{
+                                $('#espacoAviso').replaceWith(data);
+                                $('#tabelaUnidades').DataTable().ajax.reload();
+  							}
+  						});
+  					});
+  					$.datetimepicker.setLocale('pt-BR');
+	                $('.usaCalendario').datetimepicker({
+		                format : 'd/m/Y H:i:s'
+	                });
+				/*]]>*/
+
+            </script>
+        </div>
+    </div>
+</div>

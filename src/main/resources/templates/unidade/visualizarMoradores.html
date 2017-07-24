@@ -1,0 +1,53 @@
+<div id="corpoPrincipal">
+    <div class="container-fluid">
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;">
+            <div class="card-block">
+                <dl class="row">
+                    <dt class="col-3">
+                        Unidade nº:
+                    </dt>
+                    <dd class="col-9" th:text="${unidade.unidade}">
+                        153A
+                    </dd>
+                    <dt class="col-3">
+                        Email:
+                    </dt>
+                    <dd class="col-9" th:text="${unidade.email}">
+                        denizeom@gmail.com
+                    </dd>
+                    <dt class="col-3">
+                        Moradores:
+                    </dt>
+                    <dd class="col-9">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                            <th>Foto</th>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="obj : ${unidade.moradores}">
+                                <td>
+                                    <img th:src="'/unidade/morador/foto/' + ${obj.idPessoa}"
+                                         style="max-width:150px;max-height:150px;width:auto;height:auto;"/>
+                                </td>
+                                <td th:text="${obj.nome}">
+                                    Denize de Oliveira Mendonça
+                                </td>
+                                <td th:text="${obj.documento}">
+                                    Documento
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </dd>
+                </dl>
+                <br/>
+                <h4>Para qualquer alteração entre em contato com a Administração na sala do Bloco C.</h4>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div id="espacoAviso">
+
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;" th:if="${mensagem} != null">
+            <div class="card-block">
+                <p th:text="${mensagem}"></p>
+            </div>
+        </div>
+
+    <script>
+        $('#tabelaAvisos').DataTable().ajax.reload();
+    </script>
+</div>

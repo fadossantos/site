@@ -1,0 +1,52 @@
+<div id="corpoPrincipal">
+    <div class="container-fluid">
+        <div class="card" style="margin-top: 15px;margin-bottom: 15px;">
+            <div class="card-block">
+                <h3 th:text="${mensagem}"></h3>
+                <form id="formSenha" role="form" action="#" th:action="@{/unidade/trocarSenha}"
+                      method="post">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="unidade" name="unidade" th:value="${unidade}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="senhaAtual">Senha Atual</label>
+                        <input type="password" class="form-control" id="senhaAtual" name="senhaAtual"
+                               aria-describedby="senhaAtualSM"
+                               placeholder="Senha Atual"/>
+                        <small id="senhaAtualSM" class="form-text text-muted">Digite a senha atual.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="novaSenha">Nova Senha</label>
+                        <input type="password" class="form-control" id="novaSenha" name="novaSenha"
+                               aria-describedby="novaSenhaSM"
+                               placeholder="Nova Senha"/>
+                        <small id="novaSenhaSM" class="form-text text-muted">Digite a nova senha.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmacaoSenha">Confirmação de Senha</label>
+                        <input type="password" class="form-control" id="confirmacaoSenha" name="confirmacaoSenha"
+                               aria-describedby="confirmacaoSenhaSM"
+                               placeholder="Confirmação de Senha"/>
+                        <small id="confirmacaoSenhaSM" class="form-text text-muted">Confirme a nova senha.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+                <script>
+					$("#formSenha").submit(function(e) {
+  						var url = "/unidade/trocarSenha";
+  						$.ajax({
+  							type: "POST",
+  							url: url,
+  							data: $("#formSenha").serialize(),
+  							success: function(data)
+  							{
+  								$('#corpoPrincipal').replaceWith(data);
+  							}
+  						});
+  						e.preventDefault();
+  					});
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

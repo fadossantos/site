@@ -25,7 +25,7 @@ public class SmtpMailSender {
 													   // multipart message
 		helper.setSubject(subject);
 		helper.setTo(to);
-		helper.setFrom("mvengenharia@jjsoltec.com.br");
+		helper.setFrom("sitemoradas291@gmail.com");
 		helper.setText(body, true); // true indicates html
 		// continue using helper object for more functionalities like adding attachments, etc.  
 		

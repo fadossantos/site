@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -213,6 +214,50 @@ public class UnidadeController {
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/trocarSenha", method = RequestMethod.GET)
+    public ModelAndView trocarSenha() {
+        String idUnidade = SecurityContextHolder.getContext().getAuthentication().getName();
+        ModelAndView mav = new ModelAndView("unidade/trocarSenha");
+        mav.addObject("mensagem", "");
+        mav.addObject("unidade", idUnidade);
+        return mav;
+    }
+
+    @RequestMapping(value = "/trocarSenha", method = RequestMethod.POST)
+    public String trocarSenhaPost(@RequestParam("senhaAtual") String senhaAtual,
+                                  @RequestParam("novaSenha") String novaSenha,
+                                  @RequestParam("confirmacaoSenha") String confirmacaoSenha,
+                                  @RequestParam("unidade") String unidade, Model model) {
+        Unidade _unidade = this.unidadeService.findOne(unidade);
+        if(!novaSenha.contentEquals(confirmacaoSenha) || !new BCryptPasswordEncoder().matches(senhaAtual, _unidade.getSenha())){
+            String mensagem = "Senhas digitadas não conferem.";
+            model.addAttribute("mensagem", mensagem);
+            return "unidade/trocarSenha";
+        }
+        else {
+
+            _unidade.setSenha(new BCryptPasswordEncoder().encode(novaSenha));
+            this.unidadeService.addOrUpdate(_unidade);
+            try {
+                this.smtpMailSender.send(_unidade.getEmail(), "Alteração de Senha", "Sua senha do site moradas291.com.br foi alterada para " + novaSenha);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            String mensagem = "Senha alterada com sucesso.";
+            model.addAttribute("mensagem", mensagem);
+            return "unidade/trocarSenhaSucesso";
+        }
+    }
+
+    @RequestMapping(value = "/visualizarMoradores", method = RequestMethod.GET)
+    public ModelAndView visualizarMoradores() {
+        String idUnidade = SecurityContextHolder.getContext().getAuthentication().getName();
+        Unidade unidade = this.unidadeService.findOne(idUnidade);
+        ModelAndView mav = new ModelAndView("unidade/visualizarMoradores");
+        mav.addObject("mensagem", "");
+        mav.addObject("unidade", unidade);
+        return mav;
+    }
 
 }
 
