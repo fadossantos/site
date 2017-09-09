@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"/>
+    <title>GudaGuda</title>
+</head>
+<body>
+<div id="corpoPrincipal">
+    <div>
+        <form method="POST" enctype="multipart/form-data" th:action="@{/santos}">
+            <table>
+                <tr>
+                    <td>Arquivo da Folha:</td>
+                    <td><input type="file" name="file"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Processar"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
