@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/unidade/dtUnidades", "/aviso/dtAvisos").and().authorizeRequests()
-                .antMatchers("/static/**", "/webjars/**", "/favicon.ico", "/", "/historia", "/localizacao").permitAll().and().authorizeRequests()
+                .antMatchers("/static/**","/santos", "/webjars/**", "/favicon.ico", "/", "/historia", "/localizacao").permitAll().and().authorizeRequests()
                 .anyRequest().authenticated()
                 .and().formLogin().defaultSuccessUrl("/menuNavegacao").loginPage("/login").permitAll().and().logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/").invalidateHttpSession(true).permitAll();
