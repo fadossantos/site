@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -93,6 +94,10 @@ public class Aviso implements Serializable{
 
     public byte[] getImagem() {
         return imagem;
+    }
+
+    public String getImagemBase64() {
+        return Base64.getEncoder().encodeToString(imagem);
     }
 
     public void setImagem(byte[] imagem) {

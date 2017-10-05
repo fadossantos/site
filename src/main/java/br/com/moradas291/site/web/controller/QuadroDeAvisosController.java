@@ -95,4 +95,12 @@ public class QuadroDeAvisosController {
         return mav;
     }
 
+    @RequestMapping(value = "/visualizarAvisos", method = RequestMethod.GET)
+    public ModelAndView visualizarAvisos() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("aviso/visualizarAvisos");
+        mav.addObject("listaAvisos", this.avisoService.findAll());
+        return mav;
+    }
+
 }
